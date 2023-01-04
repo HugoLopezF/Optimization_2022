@@ -59,7 +59,7 @@ function [R, Aut, To, Rt, To_t, gforce, mu_deg, T_min, SFC] = Actuaciones(hft, h
     E = CL/CD; % Eficiencia aerodinámica
     T = 0.5*rho*S*v^2*CD; % Empuje crucero[N]
     To = T/(1-(2E-5)*hft); % Empuje crucero según altura [N]
-    To_t = T/(1-(2E-5)*hft_t); % Empuje viraje según altura [N]
+    To_t = T_t/(1-(2E-5)*hft_t); % Empuje viraje según altura [N]
     T_min = max([To_t,To]); % Empuje mínimo necesario [N]
     
 %%% Cálculo SFC
@@ -106,18 +106,17 @@ function [R, Aut, To, Rt, To_t, gforce, mu_deg, T_min, SFC] = Actuaciones(hft, h
 
     end
     
-    SFC = SFC_o*(1-(1E-5)*hft); % Consumo según altura [kg/kNh]
-
-%     x = linspace(0, max( valores_T ));
-% 
-%     coefs = polyfit( valores_T, valores_SFC, 1 ); % Coefs polinomio para aproximar
+%     if To_t > To
 %     
-%     funcion_SFC = coefs(1)*x + coefs(2); % Polinomio aproximado
-%     SFC = coefs(1)*T_min + coefs(2); % Consumo específico para un empuje dado
+%         SFC = SFC_o*(1-(5E-6)*hft_t); % Consumo según altura [kg/kNh]
 %     
-%     plot(valores_T, valores_SFC, '*')
-%     hold on
-%     plot(x, funcion_SFC, 'LineWidth',1)
+%     else
+%     
+%         SFC = SFC_o*(1-(5E-6)*hft); % Consumo según altura [kg/kNh]
+%     
+%     end
+    
+    SFC = SFC_o;
     
 %%% Alcance
 
